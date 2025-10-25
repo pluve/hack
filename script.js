@@ -11,6 +11,13 @@ function docReady(fn) {
 // Count calories
 let totalCalories = 0;
 let calories = [];
+const macronutrients = ["energy-kcal", "fat", "carbohydrates", "proteins"];
+const macronutrientsUnits = {
+    "energy-kcal": "kcal",
+    "fat": "g",
+    "carbohydrates": "g",
+    "proteins": "g"
+};
 
 docReady(function() {
     var resultContainer = document.getElementById('qr-reader-results');
@@ -37,6 +44,13 @@ docReady(function() {
                     calories.push(caloriesValue);
                     document.getElementById("total-calories").innerText = "Total Calories: " + totalCalories;
                     resultContainer.innerHTML += `<div>[${countResults}] - ${decodedText} - Product Name: ${data.product.product_name}</div>`;
+
+                    macronutrients.forEach(nutriment => {
+                        let value = data.product.nutriments[nutriment];
+                        if (value !== undefined) {
+                            document.getElementById("output").innerText += `\n${nutriment}: ${value} ${macronutrientsUnits[nutriment]}`;
+                        }
+                    });
                 })
                 .catch(error => {
                     console.error("Error fetching product data:", error);
