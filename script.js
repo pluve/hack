@@ -37,7 +37,9 @@ docReady(function() {
     html5QrcodeScanner.render(onScanSuccess, onScanError);
 });
 
-response = fetch("https://world.openfoodfacts.net/api/v2/product/3274080005003.json", {
+let url = "https://world.openfoodfacts.net/api/v2/product/" + countResults + "3274080005003.json";
+
+response = fetch(url, {
     method: "GET",
     headers: { Authorization: "Basic " + btoa("off:off") },
 })
