@@ -37,7 +37,7 @@ docReady(function() {
                     // Update total calories and display and convert to int
                     totalCalories += parseInt(caloriesValue);
                     calories.push(caloriesValue);
-                    document.getElementById("total-calories").innerText = totalCalories;
+                    document.getElementById("total-calories").innerText = "Total Calories: " + totalCalories;
                 })
                 .catch(error => {
                     console.error("Error fetching product data:", error);
