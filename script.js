@@ -25,8 +25,6 @@ docReady(function() {
             lastResult = decodedText;
             console.log(`Scan result = ${decodedText}`, decodedResult);
 
-            resultContainer.innerHTML += `<div>[${countResults}] - ${decodedText}</div>`;
-
             let url = "https://world.openfoodfacts.net/api/v2/product/" + decodedText + ".json";
             fetch(url)
                 .then(response => response.json())
@@ -38,6 +36,7 @@ docReady(function() {
                     totalCalories += parseInt(caloriesValue);
                     calories.push(caloriesValue);
                     document.getElementById("total-calories").innerText = "Total Calories: " + totalCalories;
+                    resultContainer.innerHTML += `<div>[${countResults}] - ${decodedText} - Product Name: ${data.product.product_name}</div>`;
                 })
                 .catch(error => {
                     console.error("Error fetching product data:", error);
