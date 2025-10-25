@@ -28,10 +28,11 @@ docReady(function() {
                 .then(response => response.json())
                 .then(data => {
                     const nutriments = data.product.nutriments;
-                    document.getElementById("output").innerText = JSON.stringify(nutriments, null, 2);
                     const parseNutrients = JSON.parse(nutriments);
+                    document.getElementById("output").innerText = parseNutrients.fat;
 
-                    console.log(parseNutrients.fiber);
+
+                   // console.log(parseNutrients.fiber);
                 })
                 .catch(error => {
                     console.error("Error fetching product data:", error);
