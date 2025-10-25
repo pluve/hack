@@ -23,7 +23,18 @@ docReady(function() {
 
             resultContainer.innerHTML += `<div>[${countResults}] - ${decodedText}</div>`;
 
-            // Optional: To close the QR code scannign after the result is found
+            let url = "https://world.openfoodfacts.net/api/v2/product/" + decodedText + ".json";
+            fetch(url)
+                .then(response => response.json())
+                .then(data => {
+                    const nutriments = data.product.nutriments;
+                    document.getElementById("output").innerText = JSON.stringify(nutriments, null, 2);
+                })
+                .catch(error => {
+                    console.error("Error fetching product data:", error);
+                });
+
+            // Optional: To close the QR code scanning after the result is found
             html5QrcodeScanner.clear();
         }
     }
@@ -35,17 +46,4 @@ docReady(function() {
     }
 
     html5QrcodeScanner.render(onScanSuccess, onScanError);
-});
-
-let url = "https://world.openfoodfacts.net/api/v2/product/" + countResults + "3274080005003.json";
-
-response = fetch(url, {
-    method: "GET",
-    headers: { Authorization: "Basic " + btoa("off:off") },
-})
-
-response.then(res => res.json()).then(data => {
-    console.log(data);
-    const nutriments = data.product.nutriments;
-    document.getElementById("output").innerText = JSON.stringify(nutriments, null, 2);
 });
