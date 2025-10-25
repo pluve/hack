@@ -28,18 +28,19 @@ docReady(function() {
                 .then(response => response.json())
                 .then(data => {
                     const nutriments = data.product.nutriments;
-                    const parseNutrients = JSON.parse(nutriments);
-                    document.getElementById("output").innerText = parseNutrients.fat;
-
-
-                   // console.log(parseNutrients.fiber);
+                    let caloriesValue = nutriments["energy-kcal"];
+                    document.getElementById("output").innerText = caloriesValue;
+                    // Update total calories and display and convert to int
+                    totalCalories += parseInt(caloriesValue);
+                    calories.push(caloriesValue);
+                    document.getElementById("total-calories").innerText = totalCalories;
                 })
                 .catch(error => {
                     console.error("Error fetching product data:", error);
                 });
 
             // Optional: To close the QR code scanning after the result is found
-            html5QrcodeScanner.clear();
+            // html5QrcodeScanner.clear();
         }
     }
 
