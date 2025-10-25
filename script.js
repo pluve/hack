@@ -36,3 +36,14 @@ docReady(function() {
 
     html5QrcodeScanner.render(onScanSuccess, onScanError);
 });
+
+response = fetch("https://world.openfoodfacts.net/api/v2/product/3274080005003.json", {
+    method: "GET",
+    headers: { Authorization: "Basic " + btoa("off:off") },
+})
+
+response.then(res => res.json()).then(data => {
+    console.log(data);
+    const nutriments = data.product.nutriments;
+    document.getElementById("output").innerText = JSON.stringify(nutriments, null, 2);
+});
