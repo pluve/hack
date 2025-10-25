@@ -8,6 +8,10 @@ function docReady(fn) {
     }
 } 
 
+// Count calories
+let totalCalories = 0;
+let calories = [];
+
 docReady(function() {
     var resultContainer = document.getElementById('qr-reader-results');
     var lastResult, countResults = 0;
